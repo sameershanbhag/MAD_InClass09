@@ -202,6 +202,8 @@ public class InboxFragment extends Fragment implements InboxRecyclerView.DeleteL
         return call;
     }
 
+
+
     @Override
     public void deleteMethod(final String delId) {
         new Thread() {
@@ -226,6 +228,11 @@ public class InboxFragment extends Fragment implements InboxRecyclerView.DeleteL
                 });
             }
         }.start();
+    }
+
+    @Override
+    public void displayMethod(Messages messages) {
+        mListener.viewMail(messages);
     }
 
     Handler mHandler = new Handler(Looper.getMainLooper()) {

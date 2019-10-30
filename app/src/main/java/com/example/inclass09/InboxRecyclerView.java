@@ -1,6 +1,7 @@
 package com.example.inclass09;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class InboxRecyclerView extends RecyclerView.Adapter<InboxRecyclerView.MyViewHolder> {
     private ArrayList<Messages> messagesArrayList;
 
-    private DeleteListner deleteListner;
+    private static DeleteListner deleteListner;
 
     public InboxRecyclerView(ArrayList<Messages> localMessagesArrayList, DeleteListner deleteListner) {
         this.messagesArrayList = localMessagesArrayList;
@@ -25,7 +26,7 @@ public class InboxRecyclerView extends RecyclerView.Adapter<InboxRecyclerView.My
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private final Context context;
-
+        Messages messages;
         TextView tv_subject;
         TextView tv_date;
         ImageView iv_delete;
@@ -38,6 +39,14 @@ public class InboxRecyclerView extends RecyclerView.Adapter<InboxRecyclerView.My
             tv_subject = itemView.findViewById(R.id.tv_subject);
             tv_date = itemView.findViewById(R.id.tv_date);
             iv_delete = itemView.findViewById(R.id.iv_delete);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("bagh", "Clicked "+ messages.toString());
+                    deleteListner.displayMethod(messages);
+                }
+            });
         }
     }
 
@@ -56,6 +65,7 @@ public class InboxRecyclerView extends RecyclerView.Adapter<InboxRecyclerView.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
+        holder.messages = messagesArrayList.get(position);
         holder.tv_subject.setText(String.format("Subject: %s", messagesArrayList.get(position).getSubject()));
         holder.tv_date.setText(String.format("Date : %s",  messagesArrayList.get(position).getCreatedAt()));
         holder.iv_delete.setOnClickListener(new View.OnClickListener() {
@@ -77,5 +87,6 @@ public class InboxRecyclerView extends RecyclerView.Adapter<InboxRecyclerView.My
 
     public interface DeleteListner{
         void deleteMethod(String delId);
+        void displayMethod(Messages messages);
     }
 }

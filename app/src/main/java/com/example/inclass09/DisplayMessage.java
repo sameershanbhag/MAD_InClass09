@@ -21,7 +21,7 @@ public class DisplayMessage extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    Messages displayMessage;
+    Messages displayMessage = new Messages();
 
     TextView tv_subject;
     TextView tv_from;
@@ -58,10 +58,24 @@ public class DisplayMessage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        tv_subject.setText(displayMessage.getSubject());
-        tv_from.setText(String.format("%s %s", displayMessage.getSenderFname(), displayMessage.getSenderLname()));
-        tv_to.setText(displayMessage.getReceiverId());
-        tv_message.setText(displayMessage.getMessage());
+        if(displayMessage != null){
+            if(displayMessage.getSubject() != null){
+                tv_subject.setText(displayMessage.getSubject());
+            }
+
+            if(displayMessage.getSenderFname() != null &&  displayMessage.getSenderLname() != null){
+                tv_from.setText(String.format("%s %s", displayMessage.getSenderFname(), displayMessage.getSenderLname()));
+            }
+
+            if(displayMessage.getReceiverId() != null){
+                tv_to.setText(displayMessage.getReceiverId());
+            }
+
+            if(displayMessage.getMessage() != null){
+                tv_message.setText(displayMessage.getMessage());
+            }
+
+        }
 
         bt_back.setOnClickListener(new View.OnClickListener() {
             @Override

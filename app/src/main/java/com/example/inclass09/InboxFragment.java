@@ -174,7 +174,6 @@ public class InboxFragment extends Fragment implements InboxRecyclerView.DeleteL
         lv_mlist.setLayoutManager(layoutManager);
         mAdapter = new InboxRecyclerView(messageList, this);
         lv_mlist.setAdapter(mAdapter);
-        //TODO: Add On Time Click Listner and Call viewMessage() Function to display Message
     }
 
     public interface OnFragmentInteractionListener {

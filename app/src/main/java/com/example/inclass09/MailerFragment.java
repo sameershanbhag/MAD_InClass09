@@ -56,12 +56,14 @@ public class MailerFragment extends Fragment {
                 loginPost(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
+                        Log.d("Yo", "I Am here");
                         Message message = mHandler.obtainMessage(400, "Fail");
                         message.sendToTarget();
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
+                        Log.d("Login Response", response.body().toString());
                         if (response.isSuccessful()) {
                             try {
                                 JSONObject root = new JSONObject(response.body().string());
@@ -73,7 +75,16 @@ public class MailerFragment extends Fragment {
                                 e.printStackTrace();
                             }
                         } else {
-                            Message message = mHandler.obtainMessage(400, "Fail");
+                            JSONObject root;
+                            String errorMessage = "Something went Wrong";
+                            try {
+                                root = new JSONObject(response.body().string());
+                                errorMessage = root.getString("message");
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Message message = mHandler.obtainMessage(400, errorMessage);
                             message.sendToTarget();
                         }
                     }
@@ -150,7 +161,7 @@ public class MailerFragment extends Fragment {
         @Override
         public void handleMessage(Message message) {
             if(message.what == 400){
-                Toast.makeText(getActivity(), "Please Check your Credentials", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), message.obj.toString(), Toast.LENGTH_SHORT).show();
             }
         }
     };

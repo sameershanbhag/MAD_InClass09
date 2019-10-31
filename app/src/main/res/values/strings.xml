@@ -17,4 +17,5 @@
     <string name="from">From :</string>
     <string name="to">To</string>
     <string name="back">Back</string>
+    <string name="createdat">Created :</string>
 </resources>

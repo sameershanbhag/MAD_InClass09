@@ -81,9 +81,9 @@ public class SignupFragment extends Fragment {
         bt_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!et_pass.getText().toString().equals(et_cpass.getText().toString()) && et_pass.getText().toString().length() < 6) {
-                    et_pass.setError("Enter a Valid Password");
-                    et_cpass.setError("Enter a Valid Password");
+                if(!et_pass.getText().toString().equals(et_cpass.getText().toString())) {
+                    et_pass.setError("Passwords Do not Match");
+                    et_cpass.setError("Passwords Do not Match");
                 } else if(et_fname.getText().toString().equals("") || et_fname.getText().toString().trim().length() == 0){
                     et_fname.setError("Enter a Valid Name");
                 } else if(et_lname.getText().toString().equals("") || et_lname.getText().toString().trim().length() == 0){
@@ -112,9 +112,18 @@ public class SignupFragment extends Fragment {
                                 }
                                 return;
                             } else {
-                                Message message = mHandler.obtainMessage(400, "Fail");
+                                JSONObject root;
+                                String errorMessage = "Something went Wrong";
+                                try {
+                                    root = new JSONObject(response.body().string());
+                                    errorMessage = root.getString("message");
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                Message message = mHandler.obtainMessage(400, errorMessage);
                                 message.sendToTarget();
-                                Log.d("Error", response.body().string());
                             }
                         }
                     });
@@ -175,7 +184,7 @@ public class SignupFragment extends Fragment {
         @Override
         public void handleMessage(Message message) {
             if(message.what == 400){
-                Toast.makeText(getActivity(), "Please Check your Credentials", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), message.obj.toString(), Toast.LENGTH_SHORT).show();
             }
         }
     };

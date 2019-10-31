@@ -59,7 +59,7 @@ public class InboxFragment extends Fragment implements InboxRecyclerView.DeleteL
     private ArrayList<Messages> messageList = new ArrayList<>();
 
     private String token;
-    String userName;
+    private String userName;
 
     public InboxFragment() {
         // Required empty public constructor
@@ -84,6 +84,7 @@ public class InboxFragment extends Fragment implements InboxRecyclerView.DeleteL
                 try {
                     Messages temp = new Messages();
                     JSONObject root = new JSONObject(response.body().string());
+                    Log.d("root", root.toString());
                     JSONArray messages = root.getJSONArray("messages");
                     for(int i = 0;i < messages.length(); i++){
                         JSONObject mes = messages.getJSONObject(i);
@@ -204,7 +205,7 @@ public class InboxFragment extends Fragment implements InboxRecyclerView.DeleteL
 
 
     @Override
-    public void deleteMethod(final String delId) {
+    public void deleteMethod(final String delId, final Integer position) {
         new Thread() {
             public void run() {
                 getActivity().runOnUiThread(new Runnable() {
@@ -213,13 +214,13 @@ public class InboxFragment extends Fragment implements InboxRecyclerView.DeleteL
                         delInbox(new Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {
-                                Message message = mHandler.obtainMessage(200, "Deletion Failed");
+                                Message message = mHandler.obtainMessage(350, "Deletion Failed");
                                 message.sendToTarget();
                             }
 
                             @Override
                             public void onResponse(Call call, Response response) {
-                                Message message = mHandler.obtainMessage(200, "success");
+                                Message message = mHandler.obtainMessage(200, position);
                                 message.sendToTarget();
                             }
                         }, delId);
@@ -238,7 +239,12 @@ public class InboxFragment extends Fragment implements InboxRecyclerView.DeleteL
         @Override
         public void handleMessage(Message message) {
             if(message.what == 200){
+                int position = Integer.valueOf(message.obj.toString());
                 Toast.makeText(getActivity(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                messageList.remove(position);
+                mAdapter.notifyItemRemoved(position);
+                mAdapter.notifyItemRangeChanged(position, messageList.size());
+                mAdapter.notifyDataSetChanged();
             } else if (message.what == 400){
                 Toast.makeText(getActivity(), "Error Retrieving Messages", Toast.LENGTH_SHORT).show();
             } else if(message.what == 250){

@@ -71,11 +71,7 @@ public class InboxRecyclerView extends RecyclerView.Adapter<InboxRecyclerView.My
         holder.iv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteListner.deleteMethod(messagesArrayList.get(position).getID());
-                messagesArrayList.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, messagesArrayList.size());
-                notifyDataSetChanged();
+                deleteListner.deleteMethod(messagesArrayList.get(position).getID(), position);
             }
         });
     }
@@ -86,7 +82,7 @@ public class InboxRecyclerView extends RecyclerView.Adapter<InboxRecyclerView.My
     }
 
     public interface DeleteListner{
-        void deleteMethod(String delId);
+        void deleteMethod(String delId, Integer position);
         void displayMethod(Messages messages);
     }
 }

@@ -82,7 +82,6 @@ public class ComposeMessage extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
-
                     JSONObject root = new JSONObject(response.body().string());
                     JSONArray users = root.getJSONArray("users");
                     for(int i = 0;i < users.length(); i++){
@@ -134,11 +133,11 @@ public class ComposeMessage extends Fragment {
             @Override
             public void onClick(View v) {
                 if(et_message.getText().toString().equals("") || et_message.getText().toString().trim().length() == 0){
-                    et_message.setError("Please Enter a Valid Message");
+                    et_message.setError("Missing or invalid message value");
                 } else if(selectedUser == null) {
-                    Toast.makeText(getActivity(), "Please Select a Receiver", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Missing or invalid receiver_id value", Toast.LENGTH_SHORT).show();
                 } else if(et_sub.getText().toString() == "" || et_sub.getText().toString().trim().length() == 0){
-                    et_sub.setError("Please Enter a Valid Subject");
+                    et_sub.setError("Missing or invalid subject value");
                 } else {
                     sendMessage(new Callback() {
                         @Override
@@ -149,6 +148,7 @@ public class ComposeMessage extends Fragment {
 
                         @Override
                         public void onResponse(Call call, Response response) {
+                            Log.d("Send Messege Response", response.body().toString());
                             Message message = mHandler.obtainMessage(450, "success");
                             message.sendToTarget();
                         }

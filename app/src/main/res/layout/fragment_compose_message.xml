@@ -13,10 +13,9 @@
         <TextView
             android:id="@+id/textView"
             android:layout_width="109dp"
-            android:layout_height="33dp"
+            android:layout_height="36dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="29dp"
-            android:layout_marginBottom="669dp"
+            android:layout_marginTop="28dp"
             android:text="@string/sendto"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -32,10 +31,10 @@
             android:layout_height="33dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.883"
+            app:layout_constraintHorizontal_bias="0.888"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.041" />
+            app:layout_constraintVertical_bias="0.04" />
 
         <EditText
             android:id="@+id/et_sub"
@@ -51,7 +50,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.122" />
+            app:layout_constraintVertical_bias="0.142" />
 
         <TextView
             android:id="@+id/textView2"
@@ -64,17 +63,18 @@
             app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.213" />
+            app:layout_constraintVertical_bias="0.227" />
 
         <EditText
             android:id="@+id/et_message"
-            android:layout_width="379dp"
-            android:layout_height="360dp"
+            android:layout_width="374dp"
+            android:layout_height="271dp"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.432"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,10 +85,10 @@
             android:text="@string/send"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.049"
+            app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.85" />
+            app:layout_constraintVertical_bias="0.774" />
 
         <Button
             android:id="@+id/bt_cancle"
@@ -97,10 +97,10 @@
             android:text="@string/cancle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.939"
+            app:layout_constraintHorizontal_bias="0.924"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.851" />
+            app:layout_constraintVertical_bias="0.774" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -21,13 +21,13 @@ public class DisplayMessage extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    Messages displayMessage = new Messages();
+    private Messages displayMessage;
 
-    TextView tv_subject;
-    TextView tv_from;
-    TextView tv_to;
-    TextView tv_message;
-    Button bt_back;
+    private TextView tv_subject;
+    private TextView tv_from;
+    private TextView tv_to;
+    private TextView tv_message;
+    private Button bt_back;
 
     public DisplayMessage(Messages message) {
         // Required empty public constructor
@@ -67,8 +67,8 @@ public class DisplayMessage extends Fragment {
                 tv_from.setText(String.format("%s %s", displayMessage.getSenderFname(), displayMessage.getSenderLname()));
             }
 
-            if(displayMessage.getReceiverId() != null){
-                tv_to.setText(displayMessage.getReceiverId());
+            if(displayMessage.getCreatedAt() != null){
+                tv_to.setText(displayMessage.getCreatedAt());
             }
 
             if(displayMessage.getMessage() != null){

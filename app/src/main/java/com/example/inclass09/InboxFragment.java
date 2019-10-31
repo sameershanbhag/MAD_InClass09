@@ -82,11 +82,12 @@ public class InboxFragment extends Fragment implements InboxRecyclerView.DeleteL
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
-                    Messages temp = new Messages();
+
                     JSONObject root = new JSONObject(response.body().string());
-                    Log.d("root", root.toString());
+
                     JSONArray messages = root.getJSONArray("messages");
                     for(int i = 0;i < messages.length(); i++){
+                        Messages temp = new Messages();
                         JSONObject mes = messages.getJSONObject(i);
                         temp.setMessage(mes.getString("message"));
                         temp.setSenderFname(mes.getString("sender_fname"));
@@ -173,6 +174,7 @@ public class InboxFragment extends Fragment implements InboxRecyclerView.DeleteL
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         lv_mlist.setLayoutManager(layoutManager);
+        Log.d("bagh", "MEssageList is "+messageList.toString());
         mAdapter = new InboxRecyclerView(messageList, this);
         lv_mlist.setAdapter(mAdapter);
     }
